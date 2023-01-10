@@ -5,12 +5,12 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilter } from 'redux/filtersSlice';
 import { deleteContact, fetchContacts } from 'redux/operation';
-import { selectFilterContacts } from 'redux/selectors';
+import { selectFilteredContacts } from 'redux/selectors';
 
 export default function ContactList() {
 
     const dispatch = useDispatch();
-    const contacts = useSelector(selectFilterContacts);
+    const contacts = useSelector(selectFilteredContacts);
 
     useEffect(() => {
         dispatch(fetchContacts());
@@ -46,7 +46,7 @@ ContactList.prototype = {
     items: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.string.isRequired,
-            number: PropTypes.string.isRequired,
+            phone: PropTypes.string.isRequired,
             name: PropTypes.string.isRequired,
 
         })).isRequired
