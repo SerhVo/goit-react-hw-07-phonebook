@@ -1,12 +1,14 @@
+
 import { nanoid } from 'nanoid';
 import style from 'components/Phonebook/phonebook.module.css'
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { addContact } from 'redux/operation';
+import { useDispatch } from 'react-redux';
+
 
 function Phonebook() {
     const [name, setName] = useState('');
-    const [number, setNumber] = useState('');
+    const [phone, setPhone] = useState('');
     const dispatch = useDispatch();
 
     const nameId = nanoid();
@@ -20,7 +22,7 @@ function Phonebook() {
                 break;
 
             case 'number':
-                setNumber(value);
+                setPhone(value);
                 break;
 
             default:
@@ -33,16 +35,14 @@ function Phonebook() {
         dispatch(action);
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
 
-        onAddContact({ name, number });
-        reset();
+    const handleSubmit = (evt) => {
+        evt.preventDefault();
+        onAddContact({ name, phone });
+        setName("");
+        setPhone("");
     }
-    const reset = () => {
-        setName('');
-        setNumber('');
-    }
+
 
 
     return (
@@ -51,6 +51,7 @@ function Phonebook() {
             <form onSubmit={handleSubmit}>
                 Name
                 <div>
+
                     <label htmlFor={nameId}></label>
                     <input
                         type="text"
@@ -72,7 +73,7 @@ function Phonebook() {
                         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                         required
-                        value={number}
+                        value={phone}
                         id={numberId}
                         onChange={handleChange}
                     /></div>
