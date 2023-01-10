@@ -1,6 +1,7 @@
 
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { Notify } from "notiflix";
 
 const isDublicate = ({ name, phone }, contacts) => {
     const normalizedName = name.toLowerCase();
@@ -25,7 +26,9 @@ export const fetchContacts = createAsyncThunk(
             const { data } = await instance.get("/contacts");
             return data;
         } catch (error) {
+            Notify.failure('Oops, something went wrong...');
             return thunkAPI.rejectWithValue(error.message);
+
         }
     });
 
@@ -44,7 +47,7 @@ export const addContact = createAsyncThunk(
         condition: (data, { getState }) => {
             const { contacts } = getState();
             if (isDublicate(data, contacts.items)) {
-                const mesage = alert(`${data.name}  is already in contacts.`);
+                const mesage = Notify.warning(`${data.name}  is already in contacts.`);
                 return mesage(data);
             }
         }
