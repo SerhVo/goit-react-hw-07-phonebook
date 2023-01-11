@@ -31,7 +31,7 @@ export default function ContactList() {
 
 
     const elem = contacts.map(({ name, phone, id }) => {
-        return <li key={id}> {name} , {phone} <button className={style.btn} onClick={() => removeContact(id)}>delete</button> </li>
+        return <li key={id}> {name}: {phone} <button className={style.btn} onClick={() => removeContact(id)}>delete</button> </li >
     })
     return (
         <div className={style.box}>
