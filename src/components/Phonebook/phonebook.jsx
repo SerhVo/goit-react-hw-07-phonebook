@@ -4,6 +4,7 @@ import style from 'components/Phonebook/phonebook.module.css'
 import { useState } from 'react';
 import { addContact } from 'redux/operation';
 import { useDispatch } from 'react-redux';
+import { Notify } from 'notiflix';
 
 
 function Phonebook() {
@@ -32,6 +33,7 @@ function Phonebook() {
 
     const onAddContact = (contact) => {
         const action = addContact(contact);
+        Notify.success('Contact added successfully!')
         dispatch(action);
     }
 

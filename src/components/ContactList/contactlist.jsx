@@ -21,10 +21,10 @@ export default function ContactList() {
     const removeContact = (id) => {
         const action = deleteContact(id);
         dispatch(action);
+        Notify.info('Contact deleted!');
         if (contacts.length === 1) {
             dispatch(setFilter(""));
-
-            Notify.failure('No more contacts');
+            Notify.warning('No more contacts');
         }
     }
 
